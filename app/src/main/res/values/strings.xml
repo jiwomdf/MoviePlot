@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MoviePlot</string>
+
+    <!-- Greeting -->
+    <string name="text_good_morning">Good Morning,</string>
+    <string name="text_good_afternoon">Good Afternoon,</string>
+    <string name="text_good_evening">Good Evening,</string>
+    <string name="text_good_night">Good Night,</string>
+    <string name="text_good_day">Good Day,</string>
+
+    <!-- Message -->
+    <string name="comment_not_found">Comment not found</string>
+    <string name="press_back_again_close_app">Press back again to close the app</string>
+    <!--Bottom Sheet Message-->
+    <string name="text_error_title">Error Occurred</string>
+    <string name="text_error_dsc">Sorry.. there is an error, please try again</string>
+
+    <!-- glide -->
+    <string name="user_blank_profile">user_blank_profile</string>
+
+    <!-- Button -->
+    <string name="oke">Oke</string>
+    <string name="retry">Retry</string>
+
+    <!-- Movie Detail -->
+    <string name="plot">Plot</string>
+    <string name="movie">Movie</string>
+    <string name="popular_movie">Popular Movie</string>
+    <string name="upcoming_movie">Upcoming Movie</string>
+    <string name="imbd_id">IMBD ID:</string>
+    <string name="vote">Vote</string>
+    <string name="description">Description:</string>
+
+</resources>

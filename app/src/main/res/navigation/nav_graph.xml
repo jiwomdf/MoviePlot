@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/introductionFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.katilijiwo.movieplot.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_introductionFragment"
+            app:destination="@id/introductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/introductionFragment"
+        android:name="com.katilijiwo.movieplot.ui.introduction.IntroductionFragment"
+        android:label="fragment_introduction"
+        tools:layout="@layout/fragment_introduction" >
+        <action
+            android:id="@+id/action_introductionFragment_to_fragmentDashboard"
+            app:destination="@id/fragmentDashboard" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDashboard"
+        android:name="com.katilijiwo.movieplot.ui.dashboard.FragmentDashboard"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentDashboard_to_movieDetail"
+            app:destination="@id/movieDetail" />
+        <action
+            android:id="@+id/action_fragmentDashboard_to_savedMovieFragment"
+            app:destination="@id/savedMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetail"
+        android:name="com.katilijiwo.movieplot.ui.moviedetail.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="movie_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedMovieFragment"
+        android:name="com.katilijiwo.movieplot.ui.savedmovie.SavedMovieFragment"
+        android:label="SavedMovieFragment"
+        tools:layout="@layout/fragment_saved_movie"/>
+</navigation>
