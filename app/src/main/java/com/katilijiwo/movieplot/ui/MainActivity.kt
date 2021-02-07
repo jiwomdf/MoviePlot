@@ -14,7 +14,6 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    //private val sharedPref: SharedPreferences by inject()
     private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,10 +23,6 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         setContentView(binding.root)
-
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.navigate(R.id.splashFragment)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

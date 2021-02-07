@@ -18,7 +18,6 @@ class MovieDetailFragment: BaseFragment<FragmentMovieDetailBinding>(
     private val INFORMATION = "Informasi"
     private val COMMENT = "Komentar"
     private val args: MovieDetailFragmentArgs by navArgs()
-    private val viewModel: MovieDetailViewModel by viewModel()
     lateinit var movieDetailStateAdapter: MovieDetailStateAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

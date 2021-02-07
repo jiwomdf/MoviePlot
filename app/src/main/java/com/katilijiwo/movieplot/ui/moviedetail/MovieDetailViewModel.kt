@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.katilijiwo.movieplot.data.CommentPagingSource
 import com.katilijiwo.movieplot.data.Repository
+import com.katilijiwo.movieplot.data.RepositoryImpl
 import com.katilijiwo.movieplot.data.local.entity.Movie
 import com.katilijiwo.movieplot.data.remote.json.moviedetail.MovieDetailResponse
 import com.katilijiwo.movieplot.data.remote.json.reviewmoviejson.Result
@@ -21,6 +22,8 @@ class MovieDetailViewModel(
     private val repository: Repository
 ): ViewModel() {
 
+    fun getMovieByID(movieID: Int): LiveData<Movie?> = repository.getMovieByID(movieID)
+
     data class MovieDetail(
         val id: Int,
         val title: String,
@@ -30,9 +33,6 @@ class MovieDetailViewModel(
         val voteCount: Int,
         val overview: String,
     )
-
-    fun getMovieByID(movieID: Int): LiveData<Movie?> = repository.getMovieByID(movieID)
-
     private var movieDetail = MutableLiveData<MovieDetail>()
     fun setMovieDetail(movieDetail: MovieDetail){
         this.movieDetail.value = movieDetail

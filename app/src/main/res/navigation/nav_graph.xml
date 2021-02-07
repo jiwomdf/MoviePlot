@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/introductionFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_introductionFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:destination="@id/introductionFragment" />
     </fragment>
     <fragment
@@ -21,6 +25,10 @@
         tools:layout="@layout/fragment_introduction" >
         <action
             android:id="@+id/action_introductionFragment_to_fragmentDashboard"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:destination="@id/fragmentDashboard" />
     </fragment>
     <fragment
@@ -33,9 +41,17 @@
             app:argType="string" />
         <action
             android:id="@+id/action_fragmentDashboard_to_movieDetail"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:destination="@id/movieDetail" />
         <action
             android:id="@+id/action_fragmentDashboard_to_savedMovieFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:destination="@id/savedMovieFragment" />
     </fragment>
     <fragment
@@ -51,5 +67,13 @@
         android:id="@+id/savedMovieFragment"
         android:name="com.katilijiwo.movieplot.ui.savedmovie.SavedMovieFragment"
         android:label="SavedMovieFragment"
-        tools:layout="@layout/fragment_saved_movie"/>
+        tools:layout="@layout/fragment_saved_movie">
+        <action
+            android:id="@+id/action_savedMovieFragment_to_movieDetail"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:destination="@id/movieDetail" />
+    </fragment>
 </navigation>

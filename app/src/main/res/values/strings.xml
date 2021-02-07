@@ -9,8 +9,14 @@
     <string name="text_good_day">Good Day,</string>
 
     <!-- Message -->
+    <string name="are_you_sure_want_to_delete_this_movie_from_saved_list">Are you sure want to remove this item from saved Movies?</string>
     <string name="comment_not_found">Comment not found</string>
     <string name="press_back_again_close_app">Press back again to close the app</string>
+    <string name="added_image">Added to saved movies</string>
+    <string name="removed_image">Removed from saved movies</string>
+    <string name="there_is_no_saved_data">There is no saved data</string>
+    <string name="there_is_no_data">There is no data</string>
+
     <!--Bottom Sheet Message-->
     <string name="text_error_title">Error Occurred</string>
     <string name="text_error_dsc">Sorry.. there is an error, please try again</string>
@@ -21,6 +27,7 @@
     <!-- Button -->
     <string name="oke">Oke</string>
     <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Movie Detail -->
     <string name="plot">Plot</string>
@@ -30,5 +37,8 @@
     <string name="imbd_id">IMBD ID:</string>
     <string name="vote">Vote</string>
     <string name="description">Description:</string>
+
+    <!-- Saved Movie -->
+    <string name="saved_movie">Saved Movies</string>
 
 </resources>

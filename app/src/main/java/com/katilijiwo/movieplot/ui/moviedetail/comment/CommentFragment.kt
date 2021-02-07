@@ -28,9 +28,11 @@ class CommentFragment: BaseFragment<FragmentCommentBinding>(
     R.layout.fragment_comment
 ) {
 
+    private val DATA_FOUND = 1
+    private val DATA_NOT_FOUND = 2
+
     private val viewModel: MovieDetailViewModel by viewModel()
     lateinit var commentAdapter: CommentAdapter
-    lateinit var commentLoadStateAdapter: CommentLoadStateAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,11 +59,9 @@ class CommentFragment: BaseFragment<FragmentCommentBinding>(
             if(combinedLoadStates.source.refresh is LoadState.NotLoading &&
                 combinedLoadStates.append.endOfPaginationReached &&
                 commentAdapter.itemCount < 1){
-                binding.tvCommentNotFound.visibility = View.VISIBLE
-                binding.rvComments.visibility = View.GONE
+                setComponentVisibility(DATA_NOT_FOUND)
             } else {
-                binding.tvCommentNotFound.visibility = View.GONE
-                binding.rvComments.visibility = View.VISIBLE
+                setComponentVisibility(DATA_FOUND)
             }
 
             when(combinedLoadStates.source.refresh){
@@ -72,12 +72,24 @@ class CommentFragment: BaseFragment<FragmentCommentBinding>(
                     setProgressBarLoading(false)
                 }
                 is LoadState.Error -> {
-                    val loadState = combinedLoadStates.source.refresh as LoadState.Error
-                    Toast.makeText(requireContext(), loadState.error.message, Toast.LENGTH_SHORT).show()
+                    setProgressBarLoading(false)
+                    setComponentVisibility(DATA_NOT_FOUND)
                 }
             }
         }
+    }
 
+    private fun setComponentVisibility(status: Int){
+        when(status){
+            DATA_FOUND -> {
+                binding.tvCommentNotFound.visibility = View.GONE
+                binding.rvComments.visibility = View.VISIBLE
+            }
+            DATA_NOT_FOUND -> {
+                binding.tvCommentNotFound.visibility = View.VISIBLE
+                binding.rvComments.visibility = View.GONE
+            }
+        }
     }
 
     private fun initRecyclerView(){

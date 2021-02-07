@@ -3,18 +3,8 @@ package com.katilijiwo.movieplot.base
 import android.util.Log
 import com.google.gson.Gson
 import com.katilijiwo.movieplot.BuildConfig
-import retrofit2.HttpException
-import retrofit2.Response
-import java.net.HttpURLConnection
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
-import com.katilijiwo.movieplot.util.Resource
-import com.katilijiwo.movieplot.data.remote.exceptions.NoInternetException
-import com.katilijiwo.movieplot.data.remote.exceptions.NotFoundException
-import com.katilijiwo.movieplot.data.remote.exceptions.UnAuthorizedException
-import com.katilijiwo.movieplot.data.remote.exceptions.UnKnownException
 import retrofit2.Call
-import java.io.IOException
+import retrofit2.HttpException
 
 abstract class BaseService {
 

@@ -10,40 +10,61 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_saved_movie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp">
 
-        <ImageView
-            android:id="@+id/iv_movie"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_baseline_broken_image_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_title"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@{viewModel.movieDetail.title}"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_movie"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_broken_image_24" />
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_delete_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_delete_24"
+            app:backgroundTint="@color/white"
+            app:fabCustomSize="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sonic the Hedgehog" />
 
         <TextView
             android:id="@+id/tv_tag_line"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/cardoregular"
-            android:text="@{viewModel.movieDetail.tagline}"
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="A Whole New Speed of Hero" />
@@ -64,7 +85,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
-            android:text="@{viewModel.movieDetail.imdbId}"
             app:layout_constraintStart_toEndOf="@id/tv_imbd_id"
             app:layout_constraintTop_toBottomOf="@+id/tv_tag_line"
             tools:text="tt7504726" />
@@ -86,10 +106,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="@{`` + String.valueOf(viewModel.movieDetail.voteAverage) + ` / ` + String.valueOf(viewModel.movieDetail.voteCount)}"
+            app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintStart_toEndOf="@id/tv_vote_id"
             app:layout_constraintTop_toBottomOf="@+id/tv_imbd_id"
-            app:layout_constraintBottom_toTopOf="@id/view"
             tools:text="7.9/10" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -115,6 +134,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="278dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

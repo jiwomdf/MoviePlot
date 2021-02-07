@@ -41,7 +41,6 @@ abstract class BaseFragment<DB: ViewDataBinding>(
     open fun hideKeyboard(activity: Activity) {
         val inputManager: InputMethodManager = activity
             .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
         val currentFocusedView = activity.currentFocus
         if (currentFocusedView != null) {
             inputManager.hideSoftInputFromWindow(

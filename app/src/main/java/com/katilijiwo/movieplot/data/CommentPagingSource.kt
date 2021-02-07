@@ -3,7 +3,6 @@ package com.katilijiwo.movieplot.data
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.katilijiwo.movieplot.data.remote.json.reviewmoviejson.Result
-import com.katilijiwo.movieplot.util.Constant.API_PER_PAGE
 import com.katilijiwo.movieplot.util.Constant.API_STARTING_PAGE
 
 class CommentPagingSource(
