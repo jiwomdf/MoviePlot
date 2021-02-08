@@ -41,12 +41,12 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     override fun onPause() {
         super.onPause()
         coroutineSwipe?.cancel()
-        successCounter = 0
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        successCounter = 0
         isErrorHasBeenShown = false
         setUpComponent()
         setupViewPager()
