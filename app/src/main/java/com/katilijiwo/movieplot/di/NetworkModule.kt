@@ -9,6 +9,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 val networkModule = module {
     single { headerInterceptor() }
@@ -40,6 +41,8 @@ fun okhttpClient(
     headerInterceptor: Interceptor
 ) : OkHttpClient =
     OkHttpClient.Builder()
+        .readTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
         .addInterceptor(headerInterceptor)
         .build()
 
