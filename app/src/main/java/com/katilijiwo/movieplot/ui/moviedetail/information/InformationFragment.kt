@@ -23,9 +23,6 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
 ), View.OnClickListener {
     private val viewModel: MovieDetailViewModel by viewModel()
 
-    private val DATA_EXISTS = 1
-    private val DATA_EMPTY = 2
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,11 +45,13 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
             when (it) {
                 is MovieEvent.Success -> {
                     setProgressBarLoading(false)
+                    setComponentVisibility(DATA_FOUND)
                     setupImageView(it.data.backdropPath)
                 }
                 is MovieEvent.Error -> {
                     setProgressBarLoading(false)
-                    showError(isFinish = true, isCancelable = false)
+                    setComponentVisibility(DATA_NOT_FOUND)
+                    showError(isFinish = true, isCancelable = false, description = it.message)
                 }
                 is MovieEvent.Loading -> {
                     setProgressBarLoading(true)
@@ -63,22 +62,39 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
         val movieID = arguments?.getInt(MovieDetailStateAdapter.MOVIE_ID)!!
         viewModel.getMovieByID(movieID).observe(viewLifecycleOwner, {
             if (it?.id != null && it.id == movieID){
-                setFabVisibility(DATA_EXISTS)
+                setFabVisibility(DATA_FOUND)
             } else {
-                setFabVisibility(DATA_EMPTY)
+                setFabVisibility(DATA_NOT_FOUND)
             }
         })
     }
 
     private fun setFabVisibility(status: Int){
         when(status){
-            DATA_EXISTS -> {
+            DATA_FOUND -> {
                 binding.fabSaveImg.visibility = View.GONE
                 binding.fabDeleteImg.visibility = View.VISIBLE
             }
-            DATA_EMPTY -> {
+            DATA_NOT_FOUND -> {
                 binding.fabSaveImg.visibility = View.VISIBLE
                 binding.fabDeleteImg.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setComponentVisibility(status: Int){
+        when(status){
+            DATA_FOUND -> {
+                binding.tvImbdId.visibility = View.VISIBLE
+                binding.tvVoteId.visibility = View.VISIBLE
+                binding.tvOverview.visibility = View.VISIBLE
+                binding.tvVoteIdValue.visibility = View.VISIBLE
+            }
+            DATA_NOT_FOUND -> {
+                binding.tvImbdId.visibility = View.GONE
+                binding.tvVoteId.visibility = View.GONE
+                binding.tvOverview.visibility = View.GONE
+                binding.tvVoteIdValue.visibility = View.GONE
             }
         }
     }
@@ -120,7 +136,7 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
             val bitmap = binding.ivMovie.drawable.toBitmap(binding.ivMovie.width, binding.ivMovie.height, Bitmap.Config.RGB_565)
             if(viewModel.getMovieDetail().value != null && bitmap != null && dateTimeStamp != null){
                 viewModel.insertMovie(bitmap, dateTimeStamp)
-                setFabVisibility(DATA_EXISTS)
+                setFabVisibility(DATA_FOUND)
                 Toast.makeText(requireContext(), getString(R.string.added_image), Toast.LENGTH_SHORT).show()
             } else {
                 showError()
@@ -134,7 +150,7 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
         try {
             if(viewModel.getMovieDetail().value != null){
                 viewModel.deleteMovie()
-                setFabVisibility(DATA_EMPTY)
+                setFabVisibility(DATA_NOT_FOUND)
                 Toast.makeText(requireContext(), getString(R.string.removed_image), Toast.LENGTH_SHORT).show()
             } else {
                 showError()

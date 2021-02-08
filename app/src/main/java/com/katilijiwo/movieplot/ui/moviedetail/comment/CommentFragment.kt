@@ -28,9 +28,6 @@ class CommentFragment: BaseFragment<FragmentCommentBinding>(
     R.layout.fragment_comment
 ) {
 
-    private val DATA_FOUND = 1
-    private val DATA_NOT_FOUND = 2
-
     private val viewModel: MovieDetailViewModel by viewModel()
     lateinit var commentAdapter: CommentAdapter
 

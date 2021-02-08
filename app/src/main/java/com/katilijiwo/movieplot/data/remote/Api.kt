@@ -5,30 +5,31 @@ import com.katilijiwo.movieplot.data.remote.json.popularmoviejson.PopularMovieRe
 import com.katilijiwo.movieplot.data.remote.json.reviewmoviejson.MovieReviewResponse
 import com.katilijiwo.movieplot.data.remote.json.upcomingmoviejson.UpcomingMovieResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
     @GET("3/movie/popular")
-    fun getPopularMovies(
+    suspend fun getPopularMovies(
         @Query("page") page: Int
-    ) : Call<PopularMovieReponse>
+    ) : Response<PopularMovieReponse>
 
     @GET("3/movie/upcoming")
-    fun fetchUpcomingMovies(
+    suspend fun fetchUpcomingMovies(
         @Query("page") page: Int
-    ) : Call<UpcomingMovieResponse>
+    ) : Response<UpcomingMovieResponse>
 
     @GET("3/movie/{movie_id}")
-    fun fetchMovieDetail(
+    suspend fun fetchMovieDetail(
         @Path("movie_id") movieID: Int
-    ): Call<MovieDetailResponse>
+    ): Response<MovieDetailResponse>
 
     @GET("3/movie/{movie_id}/reviews")
-    fun fetchMovieReview(
+    suspend fun fetchMovieReview(
         @Path("movie_id") movieID: Int,
         @Query("page") page: Int
-    ): Call<MovieReviewResponse>
+    ): Response<MovieReviewResponse>
 
 }

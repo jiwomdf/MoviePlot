@@ -15,8 +15,6 @@ class SavedMovieFragment: BaseFragment<FragmentSavedMovieBinding>(
     R.layout.fragment_saved_movie
 ) {
 
-    private val DATA_FOUND = 1
-    private val DATA_NOT_FOUND = 2
     private lateinit var savedMovieAdapter: SavedMovieAdapter
     private val viewModel: SavedMovieViewModel by viewModel()
 

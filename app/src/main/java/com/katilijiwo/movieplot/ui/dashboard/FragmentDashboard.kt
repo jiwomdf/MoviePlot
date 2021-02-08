@@ -24,9 +24,6 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
     R.layout.fragment_dashboard
 ), View.OnClickListener{
 
-    private val DATA_FOUND = 1
-    private val DATA_NOT_FOUND = 2
-
     private var popularIdx = 0
     private var errorCounter = 0
     private val viewModel: DashboardViewModel by viewModel()
@@ -43,6 +40,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
     override fun onPause() {
         super.onPause()
         coroutineSwipe?.cancel()
+        errorCounter = 0
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,13 +88,13 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
         viewModel.popularMovies.observe(viewLifecycleOwner, { popularMovie ->
             when (popularMovie) {
                 is MovieEvent.Success -> {
-                    setComponentVisibility(DATA_FOUND)
+                    setComponentVisibility(DATA_FOUND, "")
                     popularMovieAdapter.listData = popularMovie.data
                     popularMovieAdapter.notifyDataSetChanged()
                 }
                 is MovieEvent.Error -> {
                     errorCounter++
-                    setComponentVisibility(DATA_NOT_FOUND)
+                    setComponentVisibility(DATA_NOT_FOUND, popularMovie.message)
                 }
                 is MovieEvent.Loading -> {/*NO-OP*/
                 }
@@ -106,13 +104,13 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
         viewModel.upcomingMovies.observe(viewLifecycleOwner, { upComingMovie ->
             when (upComingMovie) {
                 is MovieEvent.Success -> {
-                    setComponentVisibility(DATA_FOUND)
+                    setComponentVisibility(DATA_FOUND, "")
                     upcomingMovieAdapter.listData = upComingMovie.data
                     upcomingMovieAdapter.notifyDataSetChanged()
                 }
                 is MovieEvent.Error -> {
                     errorCounter++
-                    setComponentVisibility(DATA_NOT_FOUND)
+                    setComponentVisibility(DATA_NOT_FOUND, upComingMovie.message)
                 }
                 is MovieEvent.Loading -> {/*NO-OP*/
                 }
@@ -142,7 +140,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
         }
     }
 
-    private fun setComponentVisibility(status: Int){
+    private fun setComponentVisibility(status: Int, message: String){
         when(status){
             DATA_FOUND -> {
                 binding.llUpcomingMovie.visibility = View.VISIBLE
@@ -154,7 +152,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
                     binding.llUpcomingMovie.visibility = View.GONE
                     binding.tvPopularMovie.visibility = View.GONE
                     binding.tvUpcomingMovieError.visibility = View.VISIBLE
-                    showError(isCancelable = false, isFinish = false)
+                    showError(isCancelable = false, isFinish = false, description = message)
                 }
             }
         }

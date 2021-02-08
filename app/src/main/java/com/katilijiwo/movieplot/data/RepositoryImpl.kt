@@ -15,7 +15,7 @@ class RepositoryImpl(
 ): Repository {
     override suspend fun fetPopularMovies(page: Int) : PopularMovieReponse {
         try {
-            return service.fetchPopularMovies(page).await()
+            return service.fetchPopularMovies(page)
         } catch (ex :Exception){
             throw ex
         }
@@ -23,7 +23,7 @@ class RepositoryImpl(
 
     override suspend fun fetchUpcomingMovie(page: Int): UpcomingMovieResponse {
         try {
-            return service.fetchUpcomingMovie(page).await()
+            return service.fetchUpcomingMovie(page)
         } catch (ex: Exception){
             throw ex
         }
@@ -31,7 +31,7 @@ class RepositoryImpl(
 
     override suspend fun fetchMovieDetail(movieID: Int): MovieDetailResponse {
         try {
-            return service.fetchMovieDetail(movieID).await()
+            return service.fetchMovieDetail(movieID)
         } catch (ex: Exception){
             throw ex
         }
@@ -39,7 +39,7 @@ class RepositoryImpl(
 
     override suspend fun fetchMovieReview(movieID: Int, page: Int): MovieReviewResponse {
         try {
-            return service.fetchMovieReview(movieID, page).await()
+            return service.fetchMovieReview(movieID, page)
         } catch (ex: Exception){
             throw ex
         }
