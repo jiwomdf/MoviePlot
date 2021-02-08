@@ -14,8 +14,12 @@ typealias UpComingMovie = com.katilijiwo.movieplot.data.remote.json.upcomingmovi
 
 class DashboardViewModel(private val repository: Repository): ViewModel() {
 
+
     private var _isFetchingAllDataComplete = MutableLiveData(0)
     val isFetchingAllDataComplete: LiveData<Int> = _isFetchingAllDataComplete
+    fun resetLoading(){
+        _isFetchingAllDataComplete.value = 0
+    }
 
     private var _popularMovies = SingleLiveEvent<MovieEvent<List<PopularMovie>>>()
     val popularMovies: LiveData<MovieEvent<List<PopularMovie>>> = _popularMovies

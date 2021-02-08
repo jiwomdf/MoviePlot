@@ -51,12 +51,12 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
                 is MovieEvent.NotFound -> {
                     setProgressBarLoading(false)
                     setComponentVisibility(DATA_NOT_FOUND)
-                    showError(isFinish = true, isCancelable = false, description = it.message)
+                    showError(isFinish = true, isCancelable = false, title = it.message)
                 }
                 is MovieEvent.Error -> {
                     setProgressBarLoading(false)
                     setComponentVisibility(DATA_NOT_FOUND)
-                    showError(isFinish = true, isCancelable = false, description = it.message)
+                    showError(isFinish = true, isCancelable = false, title = it.message)
                 }
                 is MovieEvent.Loading -> {
                     setProgressBarLoading(true)
