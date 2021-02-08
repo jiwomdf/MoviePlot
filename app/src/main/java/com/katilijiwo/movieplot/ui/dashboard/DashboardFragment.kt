@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.katilijiwo.movieplot.R
@@ -22,7 +23,7 @@ import java.util.*
 
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     R.layout.fragment_dashboard
-), View.OnClickListener{
+), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener{
 
     private var popularIdx = 0
     private val viewModel: DashboardViewModel by viewModel()
@@ -47,6 +48,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
         setUpComponent()
         setupViewPager()
         setupRecyclerView()
+        fetchData()
+    }
+
+    private fun fetchData(){
         viewModel.resetLoading()
         viewModel.fetchPopularMovie(SELECTED_PAGE)
         viewModel.fetchUpComingMovie(SELECTED_PAGE)
@@ -83,6 +88,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
         super.setListener()
 
         binding.ivSaveImage.setOnClickListener(this)
+        binding.slDashboard.setOnRefreshListener(this)
 
         viewModel.popularMovies.observe(viewLifecycleOwner, { popularMovie ->
             when (popularMovie) {
@@ -208,6 +214,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
                 false
             )
         }
+    }
+
+    override fun onRefresh() {
+        fetchData()
+        binding.slDashboard.isRefreshing = false
     }
 
 }
