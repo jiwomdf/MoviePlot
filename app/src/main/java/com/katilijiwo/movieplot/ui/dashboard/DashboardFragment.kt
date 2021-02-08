@@ -26,6 +26,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
 
     private var popularIdx = 0
     private var successCounter = 0
+    private var isErrorHasBeenShown = false
     private val viewModel: DashboardViewModel by viewModel()
     private val args: DashboardFragmentArgs by navArgs()
     lateinit var popularMovieAdapter: PopularMovieAdapter
@@ -46,6 +47,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        isErrorHasBeenShown = false
         setUpComponent()
         setupViewPager()
         setupRecyclerView()
@@ -165,7 +167,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
                     binding.tvPopularMovie.visibility = View.GONE
                     binding.vpPopularMovie.visibility = View.GONE
                     binding.tlPopularMovie.visibility = View.GONE
-                    showError(isCancelable = false, isFinish = false, title = message)
+                    if(!isErrorHasBeenShown){
+                        showError(isCancelable = false, isFinish = false, title = message)
+                        isErrorHasBeenShown = true
+                    }
                 }
             }
         }
