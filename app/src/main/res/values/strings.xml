@@ -16,6 +16,8 @@
     <string name="removed_image">Removed from saved movies</string>
     <string name="there_is_no_saved_data">There is no saved data</string>
     <string name="there_is_no_data">There is no data</string>
+    <string name="popular_movie_not_found">Popular movie not found</string>
+    <string name="upcoming_movie_not_found">Upcoming movie not found</string>
 
     <!--Bottom Sheet Message-->
     <string name="text_error_title">Error Occurred</string>
