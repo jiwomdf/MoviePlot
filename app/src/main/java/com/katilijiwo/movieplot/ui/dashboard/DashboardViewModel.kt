@@ -24,7 +24,7 @@ class DashboardViewModel(private val repository: Repository): ViewModel() {
             try {
                 val response = repository.fetPopularMovies(page)
                 if(response.results.isNotEmpty()){
-                    val highlight = response.results.take(5)
+                    val highlight = if(response.results.size >= 5) response.results.take(5) else response.results
                     _popularMovies.postValue(MovieEvent.Success(highlight))
                 } else {
                     _popularMovies.postValue(MovieEvent.NotFound())
@@ -44,7 +44,7 @@ class DashboardViewModel(private val repository: Repository): ViewModel() {
             try {
                 val response = repository.fetchUpcomingMovie(page)
                 if(response.results.isNotEmpty()){
-                    val highlight = response.results.take(15)
+                    val highlight = if(response.results.size >= 15) response.results.take(15) else response.results
                     _upComingMovies.postValue(MovieEvent.Success(highlight))
                 } else {
                     _upComingMovies.postValue(MovieEvent.NotFound())
