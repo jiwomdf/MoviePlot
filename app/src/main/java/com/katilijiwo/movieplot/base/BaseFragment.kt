@@ -21,9 +21,9 @@ abstract class BaseFragment<DB: ViewDataBinding>(
         private val layout: Int
 ) : Fragment() {
 
-    protected lateinit var binding: DB
     protected val DATA_FOUND = 1
     protected val DATA_NOT_FOUND = 2
+    protected lateinit var binding: DB
 
     override fun onCreateView(
             inflater: LayoutInflater,

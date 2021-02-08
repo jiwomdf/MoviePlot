@@ -26,7 +26,7 @@
                     android:id="@+id/tl_movie_detail"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="@string/saved_movie"
+                    app:title="@string/favorite_movie"
                     app:titleTextColor="@color/white"
                     app:tabIndicatorColor="@color/white"
                     app:tabIndicatorFullWidth="false"
@@ -42,7 +42,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/abl_movie_detail"
-                tools:listitem="@layout/list_saved_movie" />
+                tools:listitem="@layout/list_favorite_movie" />
 
         </LinearLayout>
 

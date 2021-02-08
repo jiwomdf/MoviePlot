@@ -9,7 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.katilijiwo.movieplot.R
 import com.katilijiwo.movieplot.base.BaseFragment
 import com.katilijiwo.movieplot.databinding.FragmentDashboardBinding
@@ -20,14 +21,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
+class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     R.layout.fragment_dashboard
 ), View.OnClickListener{
 
     private var popularIdx = 0
     private var errorCounter = 0
     private val viewModel: DashboardViewModel by viewModel()
-    private val args: FragmentDashboardArgs by navArgs()
+    private val args: DashboardFragmentArgs by navArgs()
     lateinit var popularMovieAdapter: PopularMovieAdapter
     lateinit var upcomingMovieAdapter: UpcomingMovieAdapter
     private var coroutineSwipe: Job? = null
@@ -47,6 +48,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         setUpComponent()
+        setupViewPager()
         setupRecyclerView()
         viewModel.fetchPopularMovie(SELECTED_PAGE)
         viewModel.fetchUpComingMovie(SELECTED_PAGE)
@@ -72,8 +74,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
                 if(popularIdx >= popularMovieAdapter.listData.size)
                     popularIdx = 0
                 withContext(Dispatchers.Main){
-                    binding.rvPopularMovie.smoothScrollToPosition(popularIdx)
-                    Log.d("Coroutine", popularIdx.toString())
+                    binding.vpPopularMovie.currentItem = popularIdx
                 }
                 popularIdx++
             }
@@ -92,12 +93,14 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
                     popularMovieAdapter.listData = popularMovie.data
                     popularMovieAdapter.notifyDataSetChanged()
                 }
+                is MovieEvent.NotFound -> {
+                    setComponentVisibility(DATA_NOT_FOUND, popularMovie.message)
+                }
                 is MovieEvent.Error -> {
                     errorCounter++
                     setComponentVisibility(DATA_NOT_FOUND, popularMovie.message)
                 }
-                is MovieEvent.Loading -> {/*NO-OP*/
-                }
+                is MovieEvent.Loading -> {/*NO-OP*/}
             }
         })
 
@@ -108,12 +111,14 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
                     upcomingMovieAdapter.listData = upComingMovie.data
                     upcomingMovieAdapter.notifyDataSetChanged()
                 }
+                is MovieEvent.NotFound -> {
+                    setComponentVisibility(DATA_NOT_FOUND, upComingMovie.message)
+                }
                 is MovieEvent.Error -> {
                     errorCounter++
                     setComponentVisibility(DATA_NOT_FOUND, upComingMovie.message)
                 }
-                is MovieEvent.Loading -> {/*NO-OP*/
-                }
+                is MovieEvent.Loading -> {/*NO-OP*/}
             }
         })
 
@@ -121,13 +126,9 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
             setProgressBarLoading(it)
         })
 
-        binding.rvPopularMovie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, dx: Int) {
-                super.onScrollStateChanged(recyclerView, dx)
-                if (dx === RecyclerView.SCROLL_STATE_IDLE) {
-                    val position: Int = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                    popularIdx = position
-                }
+        binding.vpPopularMovie.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                popularIdx = position
             }
         })
     }
@@ -135,7 +136,7 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.iv_save_image -> {
-                findNavController().navigate(FragmentDashboardDirections.actionFragmentDashboardToSavedMovieFragment())
+                findNavController().navigate(DashboardFragmentDirections.actionFragmentDashboardToSavedMovieFragment())
             }
         }
     }
@@ -171,42 +172,32 @@ class FragmentDashboard : BaseFragment<FragmentDashboardBinding>(
         }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupViewPager(){
         popularMovieAdapter = PopularMovieAdapter{ movieId ->
             findNavController().navigate(
-                FragmentDashboardDirections.actionFragmentDashboardToMovieDetail(
-                    movieId
-                )
-            )
-        }
-        binding.rvPopularMovie.apply {
-            adapter = popularMovieAdapter
-            layoutManager = LinearLayoutManager(
-                this@FragmentDashboard.context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            layoutDirection = View.LAYOUT_DIRECTION_LTR
+                DashboardFragmentDirections.actionFragmentDashboardToMovieDetail(movieId))
         }
 
+        binding.vpPopularMovie.adapter = popularMovieAdapter
+        TabLayoutMediator(binding.tlPopularMovie, binding.vpPopularMovie) { tab, position ->
+            popularIdx = position
+        }.attach()
+    }
+
+    private fun setupRecyclerView(){
         upcomingMovieAdapter = UpcomingMovieAdapter { movieId ->
             findNavController().navigate(
-                FragmentDashboardDirections.actionFragmentDashboardToMovieDetail(
-                    movieId
-                )
-            )
+                DashboardFragmentDirections.actionFragmentDashboardToMovieDetail(movieId))
         }
         binding.rvUpcomingMovie.apply {
             adapter = upcomingMovieAdapter
             layoutManager = GridLayoutManager(
-                this@FragmentDashboard.context,
+                this@DashboardFragment.context,
                 2,
                 LinearLayoutManager.VERTICAL,
                 false
             )
         }
     }
-
-
 
 }

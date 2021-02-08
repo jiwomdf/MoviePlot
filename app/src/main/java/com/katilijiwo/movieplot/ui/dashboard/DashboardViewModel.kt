@@ -27,7 +27,7 @@ class DashboardViewModel(private val repository: Repository): ViewModel() {
                     val highlight = response.results.take(5)
                     _popularMovies.postValue(MovieEvent.Success(highlight))
                 } else {
-                    _popularMovies.postValue(MovieEvent.Error())
+                    _popularMovies.postValue(MovieEvent.NotFound())
                 }
             }
             catch (ex: Exception){
@@ -47,7 +47,7 @@ class DashboardViewModel(private val repository: Repository): ViewModel() {
                     val highlight = response.results.take(15)
                     _upComingMovies.postValue(MovieEvent.Success(highlight))
                 } else {
-                    _upComingMovies.postValue(MovieEvent.Error())
+                    _upComingMovies.postValue(MovieEvent.NotFound())
                 }
             } catch (ex: Exception){
                 _upComingMovies.postValue(MovieEvent.Error(ex.message.toString()))

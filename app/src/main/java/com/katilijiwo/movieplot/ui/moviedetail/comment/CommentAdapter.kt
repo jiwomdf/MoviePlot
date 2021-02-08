@@ -46,7 +46,7 @@ class CommentAdapter: PagingDataAdapter<Result, CommentAdapter.CommentViewHolder
                 .load("$IMAGE_URL_PREFIX_200${data.authorDetails.avatarPath}")
                 .error(R.drawable.ic_baseline_broken_image_24)
                 .into(binding.ivAvatar)
-            binding.tvAuthor.text = "Writing by ${data.author}"
+            binding.tvAuthor.text = "Written by ${data.author}"
             binding.tvPostDate.text = formatDate(data.updatedAt)
             binding.tvComment.text = data.content
         }

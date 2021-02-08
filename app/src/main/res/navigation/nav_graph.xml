@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentDashboard"
-        android:name="com.katilijiwo.movieplot.ui.dashboard.FragmentDashboard"
+        android:name="com.katilijiwo.movieplot.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <argument
@@ -65,9 +65,9 @@
     </fragment>
     <fragment
         android:id="@+id/savedMovieFragment"
-        android:name="com.katilijiwo.movieplot.ui.savedmovie.SavedMovieFragment"
+        android:name="com.katilijiwo.movieplot.ui.favoritemovie.FavoriteMovieFragment"
         android:label="SavedMovieFragment"
-        tools:layout="@layout/fragment_saved_movie">
+        tools:layout="@layout/fragment_favorite_movie">
         <action
             android:id="@+id/action_savedMovieFragment_to_movieDetail"
             app:enterAnim="@anim/fragment_fade_enter"

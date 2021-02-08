@@ -48,6 +48,11 @@ class InformationFragment: BaseFragment<FragmentInformationBinding>(
                     setComponentVisibility(DATA_FOUND)
                     setupImageView(it.data.backdropPath)
                 }
+                is MovieEvent.NotFound -> {
+                    setProgressBarLoading(false)
+                    setComponentVisibility(DATA_NOT_FOUND)
+                    showError(isFinish = true, isCancelable = false, description = it.message)
+                }
                 is MovieEvent.Error -> {
                     setProgressBarLoading(false)
                     setComponentVisibility(DATA_NOT_FOUND)

@@ -1,4 +1,4 @@
-package com.katilijiwo.movieplot.ui.savedmovie
+package com.katilijiwo.movieplot.ui.favoritemovie
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -8,15 +8,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.katilijiwo.movieplot.R
 import com.katilijiwo.movieplot.base.BaseFragment
-import com.katilijiwo.movieplot.databinding.FragmentSavedMovieBinding
+import com.katilijiwo.movieplot.databinding.FragmentFavoriteMovieBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SavedMovieFragment: BaseFragment<FragmentSavedMovieBinding>(
-    R.layout.fragment_saved_movie
+class FavoriteMovieFragment: BaseFragment<FragmentFavoriteMovieBinding>(
+    R.layout.fragment_favorite_movie
 ) {
 
-    private lateinit var savedMovieAdapter: SavedMovieAdapter
-    private val viewModel: SavedMovieViewModel by viewModel()
+    private lateinit var favoriteMovieAdapter: FavoriteMovieAdapter
+    private val viewModel: FavoriteMovieViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,8 +27,8 @@ class SavedMovieFragment: BaseFragment<FragmentSavedMovieBinding>(
         super.setListener()
         viewModel.savedMovies.observe(viewLifecycleOwner, {
             if(it.isNotEmpty()){
-                savedMovieAdapter.listData = it
-                savedMovieAdapter.notifyDataSetChanged()
+                favoriteMovieAdapter.listData = it
+                favoriteMovieAdapter.notifyDataSetChanged()
                 setComponent(DATA_FOUND)
             } else {
                 setComponent(DATA_NOT_FOUND)
@@ -50,7 +50,7 @@ class SavedMovieFragment: BaseFragment<FragmentSavedMovieBinding>(
     }
 
     private fun setUpRecyclerView() {
-        savedMovieAdapter = SavedMovieAdapter(
+        favoriteMovieAdapter = FavoriteMovieAdapter(
             { movieID ->
                 AlertDialog.Builder(requireContext())
                     .setMessage(getString(R.string.are_you_sure_want_to_delete_this_movie_from_saved_list))
@@ -64,13 +64,13 @@ class SavedMovieFragment: BaseFragment<FragmentSavedMovieBinding>(
                     .show()
             },
             { movieID ->
-              findNavController().navigate(SavedMovieFragmentDirections.actionSavedMovieFragmentToMovieDetail(movieID))
+              findNavController().navigate(FavoriteMovieFragmentDirections.actionSavedMovieFragmentToMovieDetail(movieID))
             }
         )
         binding.rvSavedMovie.apply {
-            adapter = savedMovieAdapter
+            adapter = favoriteMovieAdapter
             layoutManager = LinearLayoutManager(
-                this@SavedMovieFragment.context,
+                this@FavoriteMovieFragment.context,
                 LinearLayoutManager.VERTICAL,
                 false
             )

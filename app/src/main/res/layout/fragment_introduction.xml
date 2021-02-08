@@ -21,16 +21,18 @@
             android:id="@+id/cl_input_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cl_continue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/cl_continue">
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/smile_1"
                 app:layout_constraintBottom_toTopOf="@id/ll_input_name"
+                app:layout_constraintEnd_toStartOf="@+id/ll_input_name"
                 app:layout_constraintStart_toStartOf="@+id/guideline7" />
 
             <LinearLayout
@@ -102,7 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_check_circle_green_24"
+                            android:src="@drawable/ic_check_circle_grey_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -152,6 +154,7 @@
                 android:layout_height="50dp"
                 android:src="@drawable/smile_2"
                 app:layout_constraintBottom_toTopOf="@id/ll_continue"
+                app:layout_constraintEnd_toStartOf="@+id/ll_continue"
                 app:layout_constraintStart_toStartOf="@+id/guideline6" />
 
             <LinearLayout

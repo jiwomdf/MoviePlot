@@ -1,4 +1,4 @@
-package com.katilijiwo.movieplot.ui.savedmovie
+package com.katilijiwo.movieplot.ui.favoritemovie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,15 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.katilijiwo.movieplot.R
 import com.katilijiwo.movieplot.data.local.entity.Movie
-import com.katilijiwo.movieplot.databinding.ListSavedMovieBinding
+import com.katilijiwo.movieplot.databinding.ListFavoriteMovieBinding
 
-class SavedMovieAdapter(
+class FavoriteMovieAdapter(
     private val deleteClick: (movieId: Int) -> Unit,
     private val navigateClick: (movieId: Int) -> Unit,
-): RecyclerView.Adapter<SavedMovieAdapter.SavedMovieViewHolder>() {
+): RecyclerView.Adapter<FavoriteMovieAdapter.SavedMovieViewHolder>() {
 
     private val diffCallback = object: DiffUtil.ItemCallback<Movie>(){
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem
     }
 
@@ -28,8 +28,8 @@ class SavedMovieAdapter(
         set(value) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedMovieViewHolder {
-        val binding = DataBindingUtil.inflate<ListSavedMovieBinding>(
-            LayoutInflater.from(parent.context), R.layout.list_saved_movie, parent, false
+        val binding = DataBindingUtil.inflate<ListFavoriteMovieBinding>(
+            LayoutInflater.from(parent.context), R.layout.list_favorite_movie, parent, false
         )
         return SavedMovieViewHolder(binding)
     }
@@ -40,7 +40,7 @@ class SavedMovieAdapter(
 
     override fun getItemCount(): Int = listData.size
 
-    inner class SavedMovieViewHolder(private val binding: ListSavedMovieBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class SavedMovieViewHolder(private val binding: ListFavoriteMovieBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.tvTitle.text = movie.title
             binding.tvTagLine.text = movie.tagline

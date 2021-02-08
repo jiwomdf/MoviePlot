@@ -1,12 +1,11 @@
-package com.katilijiwo.movieplot.ui.savedmovie
+package com.katilijiwo.movieplot.ui.favoritemovie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.katilijiwo.movieplot.data.Repository
-import com.katilijiwo.movieplot.data.RepositoryImpl
 import kotlinx.coroutines.launch
 
-class SavedMovieViewModel(
+class FavoriteMovieViewModel(
     private val repository: Repository
 ): ViewModel() {
 

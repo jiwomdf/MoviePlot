@@ -51,11 +51,13 @@ class MovieDetailViewModel(
                 if(response != null && isResponseNotNull(response) ){
                     setMovieDetail(MovieDetail(
                         response.id,
-                        response.title, response.tagline, response.imdbId,
+                        if(response.title.trim().isEmpty()) "-" else response.title,
+                        if(response.tagline.trim().isEmpty()) "-" else response.tagline,
+                        response.imdbId,
                         response.voteAverage, response.voteCount, response.overview))
                     _movieDetailStatus.postValue(MovieEvent.Success(response))
                 } else {
-                    _movieDetailStatus.postValue(MovieEvent.Error())
+                    _movieDetailStatus.postValue(MovieEvent.NotFound())
                 }
             } catch (ex: Exception){
                 _movieDetailStatus.postValue(MovieEvent.Error(ex.message.toString()))
